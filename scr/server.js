@@ -1,13 +1,14 @@
 const express = require("express");
-const knex = require("knex");
+const knex = require("../knex");
 const path = require('path');
+const pg = require('../knex')({ client: 'pg' });
 
 function setupServer() {
     const app = express();
     app.use(express.json());
 
     app.get('/', (_, res) => {
-        res.sendFile(path.join(__dirname + '/scr/index.html'));
+        res.sendFile(path.join(__dirname + '/index.html'));
     })
 
     app.get("/birthstones", async (_, res) => {
@@ -17,10 +18,12 @@ function setupServer() {
         res.send(data);
     });
 
-    app.get("/birthstones/:stone", async (req, res) => {
+    app.post("/birthstones/:stone/:color", async (req, res) => {
         //be sure that req.body is and obj
         console.log(req.params)
-        // await knex('birthstones').insert(req.body);
+        // const obj = req.params
+        await pg('birthstones').insert({ stone: "moonston", color: "white" })
+        const data = await knex.select().table('birthstones');
         res.send("posted").status(200);
     })
 
