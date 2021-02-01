@@ -22,9 +22,15 @@ function setupServer() {
         //be sure that req.body is and obj
         console.log(req.params)
         // const obj = req.params
-        await pg('birthstones').insert({ stone: "moonston", color: "white" })
+        await knex('birthstones').insert({ stone: "moonston", color: "white" })
         const data = await knex.select().table('birthstones');
         res.send("posted").status(200);
+    })
+
+    app.delete("/birthstones/:stone", async (req, res) => {
+        await knex('birthstones').where(req.params).del();
+        const data = await knex.select().table('birthstones')
+        res.send(data).status(200)
     })
 
     return app;
