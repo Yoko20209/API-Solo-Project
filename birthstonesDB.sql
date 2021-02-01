@@ -1,12 +1,12 @@
 begin transaction;
 
-CREATE TABLE birthstones (
-    month serial primary key,
+CREATE TABLE gemstones (
+    id serial primary key,
     stone text,
     color text
 );
 
-INSERT INTO birthstones (stone, color)
+INSERT INTO gemstones (stone, color)
 VALUES
 ('Garnet', 'Dark Red'),
 ('Amethyst', 'Violet'),

@@ -11,33 +11,33 @@ function setupServer() {
         res.sendFile(path.join(__dirname + '/index.html'));
     })
 
-    app.get("/birthstones", async (_, res) => {
+    app.get("/gemstones", async (_, res) => {
 
-        const data = await knex.select().table('birthstones');
+        const data = await knex.select().table('gemstones');
         res.status(200)
         res.send(data);
     });
 
-    app.post("/birthstones/:stone/:color", async (req, res) => {
-        const a = await knex('birthstones').insert(req.params)
-        const data = await knex.select().table('birthstones');
+    app.post("/gemstones/:stone/:color", async (req, res) => {
+        const a = await knex('gemstones').insert(req.params)
+        const data = await knex.select().table('gemstones');
         res.send(data).status(200);
     })
 
-    app.delete("/birthstones/:stone", async (req, res) => {
+    app.delete("/gemstones/:stone", async (req, res) => {
         //TODO serial keeps going up
-        await knex('birthstones').where(req.params).del();
-        const data = await knex.select().table('birthstones')
+        await knex('gemstones').where(req.params).del();
+        const data = await knex.select().table('gemstones')
         res.send(data).status(200)
     })
 
-    app.patch("/birthstones/:stone/:color", async (req, res) => {
+    app.patch("/gemstones/:stone/:color", async (req, res) => {
         console.log('stone, colo')
 
         const { stone, color } = req.params;
         console.log(stone, color)
-        await knex('birthstones').where({ stone: stone }).update({ color: color })
-        const data = await knex.select().table('birthstones')
+        await knex('gemstones').where({ stone: stone }).update({ color: color })
+        const data = await knex.select().table('gemstones')
         res.send(data).status(200)
     })
 
