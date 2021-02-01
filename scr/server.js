@@ -25,7 +25,18 @@ function setupServer() {
     })
 
     app.delete("/birthstones/:stone", async (req, res) => {
+        //TODO serial keeps going up
         await knex('birthstones').where(req.params).del();
+        const data = await knex.select().table('birthstones')
+        res.send(data).status(200)
+    })
+
+    app.patch("/birthstones/:stone/:color", async (req, res) => {
+        console.log('stone, colo')
+
+        const { stone, color } = req.params;
+        console.log(stone, color)
+        await knex('birthstones').where({ stone: stone }).update({ color: color })
         const data = await knex.select().table('birthstones')
         res.send(data).status(200)
     })
