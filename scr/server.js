@@ -19,12 +19,9 @@ function setupServer() {
     });
 
     app.post("/birthstones/:stone/:color", async (req, res) => {
-        //be sure that req.body is and obj
-        console.log(req.params)
-        // const obj = req.params
-        await knex('birthstones').insert({ stone: "moonston", color: "white" })
+        const a = await knex('birthstones').insert(req.params)
         const data = await knex.select().table('birthstones');
-        res.send("posted").status(200);
+        res.send(data).status(200);
     })
 
     app.delete("/birthstones/:stone", async (req, res) => {
