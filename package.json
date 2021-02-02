@@ -7,7 +7,8 @@
     "start": "node -r dotenv/config ./scr/index.js",
     "dev": "nodemon -r dotenv/config ./scr/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "seed": "knex seeds:run"
+    "seed": "knex seed:run",
+    "migrate": "knex migrate:latest"
   },
   "repository": {
     "type": "git",

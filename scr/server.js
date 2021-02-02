@@ -19,6 +19,7 @@ function setupServer() {
     });
 
     app.post("/gemstones/:stone/:color", async (req, res) => {
+        console.log(req.params)
         const a = await knex('gemstones').insert(req.params)
         const data = await knex.select().table('gemstones');
         res.send(data).status(200);
