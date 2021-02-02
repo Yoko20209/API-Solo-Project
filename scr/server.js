@@ -1,7 +1,7 @@
 const express = require("express");
-const knex = require("../knex");
+const knexfile = require("../knexfile");
+const knex = require("knex")(knexfile.development);
 const path = require('path');
-const pg = require('../knex')({ client: 'pg' });
 
 function setupServer() {
     const app = express();
@@ -35,7 +35,6 @@ function setupServer() {
         console.log('stone, colo')
 
         const { stone, color } = req.params;
-        console.log(stone, color)
         await knex('gemstones').where({ stone: stone }).update({ color: color })
         const data = await knex.select().table('gemstones')
         res.send(data).status(200)
